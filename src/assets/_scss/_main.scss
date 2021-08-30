@@ -1,0 +1,42 @@
+@import "_font-faces";
+@import "_root-variables";
+@import "_mixins";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-size: var(--font-size-root);
+}
+
+body {
+	background-color: #0f0f0f;
+	height: 100vh;
+}
+
+h1 {
+	font-size: var(--font-size-h1);
+	font-family: var(--font-family-bold);
+	color: var(--color-palette-4);
+}
+
+p {
+	font-size: var(--font-size-p);
+	font-family: var(--font-family-normal);
+	color: var(--color-palette-3);
+}
+
+a {
+	font-size: var(--font-size-a);
+	font-family: var(--font-family-normal);
+	color: var(--pop-color-1);
+	text-decoration: none;
+}
+
+span {
+	font-size: inherit;
+}
+
+fa-icon {
+	font-size: var(--font-size-icon);
+}

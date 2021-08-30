@@ -1,0 +1,136 @@
+<nav id="sidebar">
+	<div id="logo">
+		<img
+			src="assets/_placeholders/placeholder-logo.svg"
+			alt="Placeholder logo"
+		>
+	</div>
+	<ul>
+		<ng-container *ngFor="let sideBarEntry of entries">
+			<li class="section-header">
+				<p>{{ sideBarEntry.title }}</p>
+			</li>
+			<ng-container *ngFor="let menu of sideBarEntry.submenus;">
+				<li
+					class="menu"
+					[class.active]="__expandedMenuTitle === menu.title"
+					[class.disabled]="menu.disable"
+				>
+					<ng-container *ngIf="!menu.submenus; else hasSubmenus">
+						<ng-container *ngIf="menu.openInNewTab; else internalMenu">
+							<a
+								class="root-link"
+								[href]="(menu.disable ? null : menu.url) || null"
+								target="_blank"
+								[class.disabled]="menu.disable"
+								(click)="urlClicked.emit();"
+							>
+								<fa-icon [icon]="menu.iconDefinition"></fa-icon>
+								{{ menu.title }}
+							</a>
+						</ng-container>
+						<ng-template #internalMenu>
+							<a
+								class="root-link"
+								[routerLink]="(menu.disable ? null : menu.url) || null"
+								[class.active]="menu.__isActive"
+								[class.disabled]="menu.disable"
+								(click)="__expandedMenuTitle = null; urlClicked.emit();"
+							>
+								<fa-icon [icon]="menu.iconDefinition"></fa-icon>
+								{{ menu.title }}
+							</a>
+						</ng-template>
+					</ng-container>
+					<ng-template #hasSubmenus>
+						<a
+							class="root-link"
+							[class.disabled]="menu.disable"
+							[class.active]="(__expandedMenuTitle === menu.title)"
+							[class.highlight]="(__expandedMenuTitle === menu.title) || menu.__hasActiveSubmenu"
+							(click)="menu.disable ? null : (__expandedMenuTitle === menu.title) ? (__expandedMenuTitle = null) : (__expandedMenuTitle = menu.title)"
+						>
+							<fa-icon [icon]="menu.iconDefinition"></fa-icon>
+							{{ menu.title }}
+							<fa-icon
+								class="angle-right"
+								[icon]="faAngleRight"
+							></fa-icon>
+						</a>
+						<div class="submenu">
+							<ul>
+								<ng-container *ngFor="let submenu of menu.submenus">
+									<ng-container *ngIf="!submenu.submenus; else hasSubSubmenus">
+										<li [class.disabled]="submenu.disable">
+											<ng-container *ngIf="submenu.openInNewTab; else internalSubmenu">
+												<a
+													[href]="(submenu.disable ? null : submenu.url) || null"
+													target="_blank"
+													[class.disabled]="submenu.disable"
+													(click)="urlClicked.emit();"
+												>
+													{{ submenu.title }}
+												</a>
+											</ng-container>
+											<ng-template #internalSubmenu>
+												<a
+													[routerLink]="(submenu.disable ? null : submenu.url) || null"
+													[class.active]="submenu.__isActive"
+													[class.disabled]="submenu.disable"
+													(click)="urlClicked.emit();"
+												>
+													{{ submenu.title }}
+												</a>
+											</ng-template>
+										</li>
+									</ng-container>
+									<ng-template #hasSubSubmenus>
+										<li
+											class="pop-out-on-hover"
+											[class.disabled]="submenu.disable"
+										>
+											<div class="submenu-link-holder">
+												<a
+													[class.disabled]="submenu.disable"
+													[class.active]="submenu.__hasActiveSubmenu"
+													[class.highlight]="(__expandedMenuTitle === submenu.title) || submenu.__hasActiveSubmenu"
+												>
+													{{ submenu.title }}
+												</a>
+											</div>
+											<ul class="pop-out">
+												<ng-container *ngFor="let subsubmenu of submenu.submenus">
+													<li [class.disabled]="subsubmenu.disable">
+														<a
+															[routerLink]="(subsubmenu.disable ? null : subsubmenu.url) || null"
+															[class.active]="subsubmenu.__isActive"
+															[class.disabled]="subsubmenu.disable"
+															(click)="urlClicked.emit();"
+														>
+															{{ subsubmenu.title }}
+														</a>
+													</li>
+												</ng-container>
+											</ul>
+										</li>
+									</ng-template>
+								</ng-container>
+							</ul>
+						</div>
+					</ng-template>
+				</li>
+			</ng-container>
+		</ng-container>
+	</ul>
+	<footer id="side-bar-footer">
+		<img [src]="__randomUser?.pictureUrl || 'assets/_placeholders/placeholder-user.svg'" />
+		<div id="contact-info">
+			<p id="name">{{ __randomUser?.name || '-' }}
+				<span>
+					<fa-icon [icon]="faEllipsisV"></fa-icon>
+				</span>
+			</p>
+			<p id="email">{{ __randomUser?.email || '-' }}</p>
+		</div>
+	</footer>
+</nav>

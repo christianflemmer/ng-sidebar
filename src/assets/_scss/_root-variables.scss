@@ -1,0 +1,26 @@
+:root {
+	// Font sizes
+	--font-size-root: 62.5%;
+	--font-size-h1: 2rem;
+	--font-size-p: 1.2rem;
+	--font-size-a: 1.2rem;
+	--font-size-icon: 1.2rem;
+
+	// Font families
+	--font-family-normal: "Barlow-Medium", "Arial";
+	--font-family-bold: "Barlow-ExtraBold", "Arial Bold";
+
+	// Colors
+	--color-palette-1: #1d1d1d;
+	--color-palette-2: #2b2b2b;
+	--color-palette-3: #849198;
+	--color-palette-4: #ffffff;
+	--pop-color-1: #00a7b5;
+
+	// Shadows
+	--tiny-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+	--light-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
+
+	// Radii
+	--border-radius: 5px;
+}
